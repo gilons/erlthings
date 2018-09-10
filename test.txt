@@ -1,0 +1,18 @@
+Type Conversion
+Type conversions have to be BIFs since they change the underlying representation of
+the data. This would be impossible to do efficiently within the language, even if it were
+possible to do at all. There are numerous type conversion functions, not only to change
+numerical types, but also to convert the basic types to and from a printable representation (i.e., string). When changing a float to an integer, you can choose between
+rounding and truncating it:
+atom_to_list/1, list_to_atom/1, list_to_existing_atom/1
+All convert atoms to strings and back. If the atom was not previously used by
+the runtime system in the current session, calling the function
+list_to_existing_atom/1 will fail.
+list_to_tuple/1, tuple_to_list/1
+Both convert between the two data types.
+float/1, list_to_float/1
+Both create a float, one with an integer parameter and the other from a string.
+float_to_list/1, integer_to_list/1
+Both return strings.
+round/1, trunc/1, list_to_integer/1
+All return integers.
