@@ -2,8 +2,6 @@
 -export([start/0,stop/0,allocate/0,deallocate/1]).
 -export([init/0]).
 
-
-
 %% These are the start functions used to create and  initialize the server
 
 start() ->
@@ -44,7 +42,7 @@ loop(Frequencies) -> receive
     {request,Pid,ok} ->
         reply(Pid,ok);
     {'EXIT',Pid,_Reason} -> 
-        NewFrequencies = exit(Frequencies,Pid),
+        NewFrequencies = exited(Frequencies,Pid),
         loop(NewFrequencies)
         
 end.
@@ -65,7 +63,7 @@ deallocate({Free,Allocated},Freq) ->
     NewAllocated = lists:keydelete(Freq,1,Allocated),
     {[Freq|Free],NewAllocated}.
 
-exit({Free,Allocated},Pid) ->
+exited({Free,Allocated},Pid) ->
     case lists:keysearch(Pid,1,Allocated) of
          {value,{Freq,Pid}} -> NewAllocated = lists:keydelete(Freq,1,Allocated),
          {[Freq|Free],NewAllocated};
