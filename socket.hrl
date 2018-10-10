@@ -1,0 +1,3 @@
+-record(event,{id,creator_phone,location,period,about,participant}).
+-record(about,{title,description}).
+-record(participant,{phone,master}).
